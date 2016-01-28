@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require 'pathname'
+
+source_path = (Pathname.new(__FILE__).dirname + '../lib').expand_path
+$LOAD_PATH << source_path
+
+require 'code42template'
+
+if ['-v', '--version'].include? ARGV[0]
+  puts Code42Template::VERSION
+  exit 0
+end
+
+templates_root = File.expand_path(File.join("..", "templates"), File.dirname(__FILE__))
+Code42Template::AppGenerator.source_root templates_root
+Code42Template::AppGenerator.source_paths << Rails::Generators::AppGenerator.source_root << templates_root
+
+Code42Template::AppGenerator.start
