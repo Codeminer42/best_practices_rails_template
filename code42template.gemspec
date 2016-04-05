@@ -23,8 +23,8 @@ Code42 template is a base Rails project used at Codeminer 42.
   s.summary = "Generate a Rails app using codeminer 42 best practices."
   s.version = Code42Template::VERSION
 
-  s.add_dependency 'bitters', '~> 1.2'
   s.add_dependency 'bundler', '~> 1.3'
   s.add_dependency 'rails', Code42Template::RAILS_VERSION
 
+  s.add_development_dependency 'rspec', '~> 3.4.0'
 end
