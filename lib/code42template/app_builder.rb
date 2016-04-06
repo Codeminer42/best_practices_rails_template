@@ -117,5 +117,51 @@ module Code42Template
         /Rails\.application\.routes\.draw do.*end/m,
         "Rails.application.routes.draw do\nend"
     end
+
+    def configure_quiet_assets
+      config = <<-RUBY
+    config.quiet_assets = true
+      RUBY
+
+      inject_into_class "config/application.rb", "Application", config
+    end
+
+    def setup_spring
+	    bundle_command "exec spring binstub --all"
+	  end
+
+    def add_bullet_gem_configuration
+      config = <<-RUBY
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.rails_logger = true
+  end
+
+      RUBY
+
+      inject_into_file(
+        "config/environments/development.rb",
+        config,
+        after: "config.assets.raise_runtime_errors = true\n",
+      )
+    end
+
+    def setup_bundler_audit
+      copy_file "bundler_audit.rake", "lib/tasks/bundler_audit.rake"
+      append_file "Rakefile", %{\ntask default: "bundler:audit"\n}
+    end
+
+    def configure_letter_opener
+      config = <<-RUBY
+    config.action_mailer.delivery_method = :letter_opener
+      RUBY
+
+      inject_into_file(
+        "config/environments/development.rb", config,
+        after: "config.assets.raise_runtime_errors = true\n",
+      )
+    end
+
   end
 end

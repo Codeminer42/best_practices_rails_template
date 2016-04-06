@@ -36,6 +36,7 @@ module Code42Template
       invoke :setup_git
       invoke :setup_database
       invoke :setup_bundler_audit
+      invoke :setup_spring
     end
 
     def customize_gemfile
@@ -56,6 +57,9 @@ module Code42Template
 
     def setup_development_environment
       say 'Setting up the development environment'
+      build :add_bullet_gem_configuration
+      build :configure_quiet_assets
+      build :configure_letter_opener
     end
 
     def setup_test_environment
@@ -118,6 +122,11 @@ module Code42Template
 
     def remove_routes_comment_lines
       build :remove_routes_comment_lines
+    end
+
+    def setup_spring
+      say "Springifying binstubs"
+      build :setup_spring
     end
 
     protected
