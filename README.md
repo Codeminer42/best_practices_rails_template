@@ -41,5 +41,5 @@ The template also comes with:
 
 The template uses the [Suspenders](https://github.com/thoughtbot/suspenders) gem from Thoughtbot as starting point.
 
+[![codeminer42](http://s3.amazonaws.com/cm42_prod/assets/logo-codeminer-horizontal-c0516b1b78a8713270da02c3a0645560.png)](http://codeminer42.com)
 
-![codeminer42](http://s3.amazonaws.com/cm42_prod/assets/logo-codeminer-horizontal-c0516b1b78a8713270da02c3a0645560.png)
