@@ -6,10 +6,21 @@ gem "pg"
 gem "rails", "<%= Code42Template::RAILS_VERSION %>"
 
 group :development do
-
+  gem "quiet_assets"
+  gem "spring"
+  gem "spring-commands-rspec"
+  gem "binding_of_caller"
+  gem "better_errors"
 end
 
 group :development, :test do
+  gem 'brakeman', :require => false
+  gem "bullet"
+  gem "bundler-audit", require: false
+  gem "dotenv-rails"
+  gem "letter_opener"
+  gem "pry-byebug"
+  gem "pry-rails"
   gem "rspec-rails", "~> 3.4.0"
 end
 

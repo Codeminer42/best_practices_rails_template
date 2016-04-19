@@ -68,6 +68,36 @@ RSpec.describe "Create a new project with default configuration" do
     end
   end
 
+  it "adds explicit quiet_assets configuration" do
+    result = IO.read("#{project_path}/config/application.rb")
+
+    expect(result).to match(
+      /^ +config.quiet_assets = true$/
+    )
+  end
+
+  it "adds spring to binstubs" do
+    expect(File).to exist("#{project_path}/bin/spring")
+
+    bin_stubs = %w(rake rails rspec)
+    bin_stubs.each do |bin_stub|
+      expect(IO.read("#{project_path}/bin/#{bin_stub}")).to match(/spring/)
+    end
+  end
+
+  it "configs bullet gem in development" do
+    test_config = IO.read("#{project_path}/config/environments/development.rb")
+
+    expect(test_config).to match /^ +Bullet.enable = true$/
+    expect(test_config).to match /^ +Bullet.bullet_logger = true$/
+    expect(test_config).to match /^ +Bullet.rails_logger = true$/
+  end
+
+  it "configs letter_opener gem in development" do
+    test_config = IO.read("#{project_path}/config/environments/development.rb")
+    expect(test_config).to match /^ +config.action_mailer.delivery_method = :letter_opener$/
+  end
+
   def app_name
     Code42TemplateTestHelpers::APP_NAME
   end

@@ -14,7 +14,7 @@ This is the base Rails application used at
   Or
 
   ```cd bin/```
-  
+
   ```./code42template ~/path/app-name```
 
 ## Gemfile
@@ -25,7 +25,21 @@ Currently the following gems are included by default:
 
 #### Front-end
 #### Development
+* [Better errors](https://github.com/charliesome/better_errors) for a better and more useful error page
+* [Binding of caller](https://github.com/banister/binding_of_caller) for retrieve the binding of a method's caller
+* [Brakeman](https://github.com/presidentbeef/brakeman) for security vulnerabilities checking.
+* [Bullet](https://github.com/flyerhzm/bullet) for help to kill N+1 queries and unused eager loading
+* [Bundler Audit](https://github.com/rubysec/bundler-audit) for scanning the Gemfile for insecure dependencies based on published CVEs
+* [Dotenv](https://github.com/bkeepers/dotenv) for loading environment variables
+* [Letter Opener](https://github.com/ryanb/letter_opener) for email previews
+* [Spring](https://github.com/rails/spring) for fast Rails actions via pre-loading
+* [Pry byebug](https://github.com/deivid-rodriguez/pry-byebug) for Pry navigation commands via byebug
+* [Pry rails](https://github.com/rweng/pry-rails) for open rails console with Pry
+* [Rubocop](https://github.com/bbatsov/rubocop) for static code analysis
+* [Spring commands rspec](https://github.com/jonleighton/spring-commands-rspec) for rspec binstubs with Spring
+* [Quiet Assets](https://github.com/evrone/quiet_assets) for muting assets pipeline log messages
 #### Testing
+* [RSpec](https://github.com/rspec/rspec-rails) for unit testing
 #### Else
 
 ## Other goodies
