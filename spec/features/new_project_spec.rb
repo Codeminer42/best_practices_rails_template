@@ -68,6 +68,12 @@ RSpec.describe "Create a new project with default configuration" do
     end
   end
 
+  it 'removes jquery require statements from application.js' do
+    application_js = read_file('app/assets/javascripts/application.js')
+
+    expect(application_js).to_not match(/jquery/)
+  end
+
   it "adds explicit quiet_assets configuration" do
     result = IO.read("#{project_path}/config/application.rb")
 
@@ -100,5 +106,13 @@ RSpec.describe "Create a new project with default configuration" do
 
   def app_name
     Code42TemplateTestHelpers::APP_NAME
+  end
+
+  def read_file(path)
+    IO.read(file_path(path))
+  end
+
+  def file_path(path)
+    File.join(project_path, path)
   end
 end

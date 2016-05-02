@@ -112,6 +112,10 @@ module Code42Template
       end
     end
 
+    def remove_jquery
+      gsub_file 'app/assets/javascripts/application.js', /^.+jquery.*\n/, ''
+    end
+
     def remove_routes_comment_lines
       replace_in_file 'config/routes.rb',
         /Rails\.application\.routes\.draw do.*end/m,

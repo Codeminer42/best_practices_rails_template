@@ -23,6 +23,7 @@ module Code42Template
     def code42_customization
       invoke :customize_gemfile
       invoke :setup_development_environment
+      invoke :setup_assets
       invoke :setup_test_environment
       invoke :setup_production_environment
       invoke :setup_staging_environment
@@ -60,6 +61,12 @@ module Code42Template
       build :add_bullet_gem_configuration
       build :configure_quiet_assets
       build :configure_letter_opener
+    end
+
+    def setup_assets
+      say 'Setting up assets'
+
+      build :remove_jquery
     end
 
     def setup_test_environment
