@@ -27,3 +27,7 @@
 * Add `brakeman`
 * Add `letter_opener`
 * Add `rubocop`
+
+1.0.1 (02 Maio 2016)
+
+* Fix bug: remove missing jquery from generated application.js
