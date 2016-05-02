@@ -31,3 +31,9 @@
 1.0.1 (02 Maio 2016)
 
 * Fix bug: remove missing jquery from generated application.js
+
+UNRELEASED
+
+* Setup rspec with reasonable default settings out of the box
+* Setup capybara and database\_cleaner out of the box
+* Include optional config for phantomjs / poltergeist
