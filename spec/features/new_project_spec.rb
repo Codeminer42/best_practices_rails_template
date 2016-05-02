@@ -32,8 +32,14 @@ RSpec.describe "Create a new project with default configuration" do
   end
 
   it "copies dotfiles" do
-    %w[.env].each do |dotfile|
+    %w[.env .rspec].each do |dotfile|
       expect(File).to exist("#{project_path}/#{dotfile}")
+    end
+  end
+
+  it 'copies rspec configuration' do
+    %w[spec_helper.rb rails_helper.rb].each do |spec_config|
+      expect(File).to exist(file_path("spec/#{spec_config}"))
     end
   end
 
@@ -72,6 +78,17 @@ RSpec.describe "Create a new project with default configuration" do
     application_js = read_file('app/assets/javascripts/application.js')
 
     expect(application_js).to_not match(/jquery/)
+  end
+
+  it 'sets action dispatch show exceptions to true in test env' do
+    test_config = read_file('config/environments/test.rb')
+
+    expect(test_config).to match(
+      /config.action_dispatch.show_exceptions.*=.*true/
+    )
+    expect(test_config).not_to match(
+      /config.action_dispatch.show_exceptions.*=.*false/
+    )
   end
 
   it "adds explicit quiet_assets configuration" do
