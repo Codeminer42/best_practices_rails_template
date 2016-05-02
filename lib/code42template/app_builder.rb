@@ -31,6 +31,11 @@ module Code42Template
       copy_file "flashes_helper.rb", "app/helpers/flashes_helper.rb"
     end
 
+    def copy_rspec_config
+      copy_file 'spec_helper.rb', 'spec/spec_helper.rb'
+      copy_file 'rails_helper.rb', 'spec/rails_helper.rb'
+    end
+
     def create_application_layout
       template 'code42_layout.html.erb.erb',
         'app/views/layouts/application.html.erb',
@@ -60,7 +65,9 @@ module Code42Template
         'app/views/pages',
         'spec/lib',
         'spec/controllers',
+        'spec/models',
         'spec/helpers',
+        'spec/features',
         'spec/support/matchers',
         'spec/support/mixins',
         'spec/support/shared_examples'
@@ -120,6 +127,14 @@ module Code42Template
       replace_in_file 'config/routes.rb',
         /Rails\.application\.routes\.draw do.*end/m,
         "Rails.application.routes.draw do\nend"
+    end
+
+    def setup_test_env_action_dispatch_exceptions
+      gsub_file(
+        'config/environments/test.rb',
+        'config.action_dispatch.show_exceptions = false',
+        'config.action_dispatch.show_exceptions = true'
+      )
     end
 
     def configure_quiet_assets

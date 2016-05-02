@@ -71,6 +71,9 @@ module Code42Template
 
     def setup_test_environment
       say 'Setting up the test environment'
+
+      build :setup_test_env_action_dispatch_exceptions
+      build :copy_rspec_config
     end
 
     def setup_production_environment
