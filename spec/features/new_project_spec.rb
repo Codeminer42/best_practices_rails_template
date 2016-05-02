@@ -18,9 +18,14 @@ RSpec.describe "Create a new project with default configuration" do
   end
 
   it "ensures project specs pass" do
+    FileUtils.cp(
+      Pathname(__dir__).join('..', 'fixtures', 'smoke_test.rb'),
+      Pathname(project_path).join('spec', 'models', 'smoke_test_spec.rb')
+    )
+
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
-        expect(`rake`).to include('0 failures')
+        expect(`rake`).to include('1 example, 0 failures')
       end
     end
   end
