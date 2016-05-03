@@ -60,7 +60,6 @@ module Code42Template
       say 'Setting up the development environment'
       build :add_bullet_gem_configuration
       build :configure_quiet_assets
-      build :configure_letter_opener
     end
 
     def setup_assets

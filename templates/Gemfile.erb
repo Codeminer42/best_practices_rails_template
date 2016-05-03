@@ -4,6 +4,8 @@ ruby "<%= Code42Template::RUBY_VERSION %>"
 
 gem "pg"
 gem "rails", "<%= Code42Template::RAILS_VERSION %>"
+gem 'rack-mini-profiler'
+gem 'rubocop', require: false
 
 group :development do
   gem "quiet_assets"
@@ -14,11 +16,10 @@ group :development do
 end
 
 group :development, :test do
-  gem 'brakeman', :require => false
+  gem 'brakeman', require: false
   gem "bullet"
   gem "bundler-audit", require: false
   gem "dotenv-rails"
-  gem "letter_opener"
   gem "pry-byebug"
   gem "pry-rails"
   gem "rspec-rails", "~> 3.4.0"
@@ -27,9 +28,13 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'capybara-rails'
+  gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
+  gem 'ffaker'
+  gem 'simplecov', require: false
   #gem 'poltergeist'
 end
 
 group :staging, :production do
-
+  gem 'rails_12factor'
 end
