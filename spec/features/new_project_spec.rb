@@ -121,11 +121,6 @@ RSpec.describe "Create a new project with default configuration" do
     expect(test_config).to match /^ +Bullet.rails_logger = true$/
   end
 
-  it "configs letter_opener gem in development" do
-    test_config = IO.read("#{project_path}/config/environments/development.rb")
-    expect(test_config).to match /^ +config.action_mailer.delivery_method = :letter_opener$/
-  end
-
   def app_name
     Code42TemplateTestHelpers::APP_NAME
   end

@@ -70,7 +70,8 @@ module Code42Template
         'spec/features',
         'spec/support/matchers',
         'spec/support/mixins',
-        'spec/support/shared_examples'
+        'spec/support/shared_examples',
+        'spec/factories'
       ].each do |dir|
         empty_directory_with_keep_file dir
       end
@@ -170,17 +171,5 @@ module Code42Template
       copy_file "bundler_audit.rake", "lib/tasks/bundler_audit.rake"
       append_file "Rakefile", %{\ntask default: "bundler:audit"\n}
     end
-
-    def configure_letter_opener
-      config = <<-RUBY
-    config.action_mailer.delivery_method = :letter_opener
-      RUBY
-
-      inject_into_file(
-        "config/environments/development.rb", config,
-        after: "config.assets.raise_runtime_errors = true\n",
-      )
-    end
-
   end
 end
