@@ -23,7 +23,6 @@ module Code42Template
     def code42_customization
       invoke :customize_gemfile
       invoke :setup_development_environment
-      invoke :setup_assets
       invoke :setup_test_environment
       invoke :setup_production_environment
       invoke :setup_staging_environment
@@ -38,6 +37,7 @@ module Code42Template
       invoke :setup_database
       invoke :setup_bundler_audit
       invoke :setup_spring
+      invoke :setup_javascript
     end
 
     def customize_gemfile
@@ -60,12 +60,6 @@ module Code42Template
       say 'Setting up the development environment'
       build :add_bullet_gem_configuration
       build :configure_quiet_assets
-    end
-
-    def setup_assets
-      say 'Setting up assets'
-
-      build :remove_jquery
     end
 
     def setup_test_environment
@@ -136,6 +130,13 @@ module Code42Template
     def setup_spring
       say "Springifying binstubs"
       build :setup_spring
+    end
+
+    def setup_javascript
+      say "Setting up javascript environment with NPM and webpack"
+      say "This will also run npm install, so hold on..."
+
+      build :setup_javascript
     end
 
     protected

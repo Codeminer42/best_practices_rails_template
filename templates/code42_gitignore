@@ -12,3 +12,5 @@
 /tags
 /tmp/*
 coverage
+node_modules
+public/webpack

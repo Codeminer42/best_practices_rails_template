@@ -36,12 +36,6 @@ module Code42Template
       copy_file 'rails_helper.rb', 'spec/rails_helper.rb'
     end
 
-    def create_application_layout
-      template 'code42_layout.html.erb.erb',
-        'app/views/layouts/application.html.erb',
-        force: true
-    end
-
     def use_postgres_config_template
       template 'postgresql_database.yml.erb', 'config/database.yml',
         force: true
@@ -71,7 +65,9 @@ module Code42Template
         'spec/support/matchers',
         'spec/support/mixins',
         'spec/support/shared_examples',
-        'spec/factories'
+        'spec/factories',
+        'spec/javascripts/unit',
+        'spec/javascripts/integration',
       ].each do |dir|
         empty_directory_with_keep_file dir
       end
@@ -120,10 +116,6 @@ module Code42Template
       end
     end
 
-    def remove_jquery
-      gsub_file 'app/assets/javascripts/application.js', /^.+jquery.*\n/, ''
-    end
-
     def remove_routes_comment_lines
       replace_in_file 'config/routes.rb',
         /Rails\.application\.routes\.draw do.*end/m,
@@ -149,6 +141,64 @@ module Code42Template
     def setup_spring
 	    bundle_command "exec spring binstub --all"
 	  end
+
+    def setup_javascript
+      copy_js_root_files
+      copy_js_spec_files
+
+      copy_webpack_and_karma_config
+      copy_webpack_entry_file
+      inject_webpack_into_application_layout
+
+      run "npm install"
+    end
+
+    def copy_js_root_files
+      %w(package.json Procfile mocha-webpack.opts).each do |root_file|
+        copy_file root_file, root_file
+      end
+    end
+
+    def copy_js_spec_files
+      %w(
+        index.browser.js
+        index.integration.js
+        unit/smoke.spec.js
+        integration/smoke.spec.js
+      ).each do |js_spec_file|
+        copy_file(
+          "spec/javascripts/#{js_spec_file}",
+          "spec/javascripts/#{js_spec_file}"
+        )
+      end
+    end
+
+    def copy_webpack_and_karma_config
+      %w(
+        karma.conf.js
+        webpack.config.js
+        webpack.config.test.js
+        webpack.config.test.browser.js
+      ).each do |config_file|
+        copy_file config_file, "config/#{config_file}"
+      end
+    end
+
+    def copy_webpack_entry_file
+      copy_file(
+        "application.js",
+        "app/assets/javascripts/application.js",
+        force: true
+      )
+    end
+
+    def inject_webpack_into_application_layout
+      replace_in_file(
+        'app/views/layouts/application.html.erb',
+        /javascript_include_tag 'application'/,
+        "javascript_include_tag(*webpack_asset_paths('application'))"
+      )
+    end
 
     def add_bullet_gem_configuration
       config = <<-RUBY
