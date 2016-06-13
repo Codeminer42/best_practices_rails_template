@@ -37,3 +37,7 @@ UNRELEASED
 * Setup rspec with reasonable default settings out of the box
 * Setup capybara and database\_cleaner out of the box
 * Include optional config for phantomjs / poltergeist
+* Include webpack (webpack-rails) and NPM to replace sprockets' JS
+* webpack-rails includes foreman to manage processes: run webpack dev server
+  side by side with rails server
+* Include JS test runners: karma and mocha
