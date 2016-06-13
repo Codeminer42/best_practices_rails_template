@@ -77,6 +77,10 @@ module Code42Template
       directory("dotfiles", ".")
     end
 
+    def setup_continuous_integration
+      template "travis.yml.erb", '.travis.yml'
+    end
+
     def init_git
       run 'git init'
     end

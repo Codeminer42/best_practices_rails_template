@@ -26,6 +26,7 @@ module Code42Template
       invoke :setup_test_environment
       invoke :setup_production_environment
       invoke :setup_staging_environment
+      invoke :setup_continuous_integration
       invoke :setup_secret_token
       invoke :create_code42_views
       invoke :configure_app
@@ -75,6 +76,12 @@ module Code42Template
 
     def setup_staging_environment
       say 'Setting up the staging environment'
+    end
+
+    def setup_continuous_integration
+      say 'Setting up CI configuration'
+
+      build :setup_continuous_integration
     end
 
     def setup_secret_token
