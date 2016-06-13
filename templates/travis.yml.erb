@@ -1,0 +1,16 @@
+language: ruby
+rvm:
+  - <%= Code42Template::RUBY_VERSION %>
+before_install:
+  - nvm install <%= Code42Template::NODE_VERSION %>
+install:
+  - bundle install --jobs=3 --retry=3
+  - npm install
+before_script:
+  - bundle exec rake db:test:prepare
+script:
+  - bundle exec rspec
+  - bundle exec bundle-audit update && bundle exec bundle-audit check
+  - bundle exec brakeman -z
+  - bundle exec rubocop
+  - npm run test
