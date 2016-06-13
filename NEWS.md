@@ -41,3 +41,4 @@ UNRELEASED
 * webpack-rails includes foreman to manage processes: run webpack dev server
   side by side with rails server
 * Include JS test runners: karma and mocha
+* Upgrade Ruby to 2.3.1
