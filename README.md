@@ -3,7 +3,7 @@
 This is the base Rails application used at
 [Codeminer 42](http://www.codeminer42.com/).
 
-## Setuping the gem locally
+## Setting up the gem locally
 
   ```gem build code42template.gemspec```
 
