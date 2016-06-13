@@ -1,0 +1,20 @@
+AllCops:
+  Exclude:
+    - Rakefile
+    - db/*
+    - bin/*
+    - config/**/*
+FrozenStringLiteralComment:
+  Enabled: false
+AndOr:
+  Enabled: false
+IfUnlessModifier:
+  Enabled: false
+LeadingCommentSpace:
+  Enabled: false
+StringLiterals:
+  Enabled: false
+SignalException:
+  EnforcedStyle: semantic
+Documentation:
+  Enabled: false
