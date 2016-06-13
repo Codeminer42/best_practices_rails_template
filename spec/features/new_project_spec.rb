@@ -26,6 +26,7 @@ RSpec.describe "Create a new project with default configuration" do
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
         expect(`rake`).to include('1 example, 0 failures')
+        expect(`npm run test`).to include('1 passing', '1 SUCCESS')
       end
     end
   end
@@ -45,6 +46,23 @@ RSpec.describe "Create a new project with default configuration" do
   it 'copies rspec configuration' do
     %w[spec_helper.rb rails_helper.rb].each do |spec_config|
       expect(File).to exist(file_path("spec/#{spec_config}"))
+    end
+  end
+
+  it 'copies NPM and javascript files' do
+    %w[
+      config/karma.conf.js
+      config/webpack.config.js
+      config/webpack.config.test.js
+      config/webpack.config.test.browser.js
+      spec/javascripts/index.browser.js
+      spec/javascripts/index.integration.js
+      spec/javascripts/unit/smoke.spec.js
+      package.json
+      Procfile
+      mocha-webpack.opts
+    ].each do |file|
+      expect(File).to exist(file_path(file))
     end
   end
 
@@ -77,12 +95,6 @@ RSpec.describe "Create a new project with default configuration" do
       expect(file).not_to match(/.*#.*/)
       expect(file).not_to match(/^$\n/)
     end
-  end
-
-  it 'removes jquery require statements from application.js' do
-    application_js = read_file('app/assets/javascripts/application.js')
-
-    expect(application_js).to_not match(/jquery/)
   end
 
   it 'sets action dispatch show exceptions to true in test env' do
