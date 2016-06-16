@@ -26,11 +26,12 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.4.5",
     "mocha-loader": "^0.7.1",
-    "mocha-webpack": "^0.3.0"
+    "mocha-webpack": "^0.4.0"
   },
   "scripts": {
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "NODE_ENV=test NODE_PATH='./app/assets/javascripts' mocha-webpack",
+    "test:unit:watch": "npm run test:unit -- --watch",
     "test:browser": "NODE_ENV=test NODE_PATH='./app/assets/javascripts' webpack-dev-server --config config/webpack.config.test.browser.js --hot --inline",
     "test:integration": "NODE_ENV=test NODE_PATH='./app/assets/javascripts' karma start config/karma.conf.js",
     "test:integration:watch": "npm run test:integration -- --auto-watch --no-single-run"
