@@ -111,9 +111,7 @@ RSpec.describe "Create a new project with default configuration" do
   it "adds explicit quiet_assets configuration" do
     result = IO.read("#{project_path}/config/application.rb")
 
-    expect(result).to match(
-      /^ +config.quiet_assets = true$/
-    )
+    expect(result).to match(/^ +config.assets.quiet = true$/)
   end
 
   it "adds spring to binstubs" do

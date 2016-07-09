@@ -132,7 +132,7 @@ module Code42Template
 
     def configure_quiet_assets
       config = <<-RUBY
-    config.quiet_assets = true
+    config.assets.quiet = true
       RUBY
 
       inject_into_class "config/application.rb", "Application", config
@@ -201,19 +201,18 @@ module Code42Template
     end
 
     def add_bullet_gem_configuration
-      config = <<-RUBY
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.bullet_logger = true
-    Bullet.rails_logger = true
-  end
-
+      config = <<~RUBY
+        config.after_initialize do
+          Bullet.enable = true
+          Bullet.bullet_logger = true
+          Bullet.rails_logger = true
+        end
       RUBY
 
       inject_into_file(
         "config/environments/development.rb",
         config,
-        after: "config.assets.raise_runtime_errors = true\n",
+        after: "config.file_watcher = ActiveSupport::EventedFileUpdateChecker\n",
       )
     end
 

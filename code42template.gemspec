@@ -16,7 +16,7 @@ Code42 template is a base Rails project used at Codeminer 42.
   s.executables = ['code42template']
   s.extra_rdoc_files = %w[README.md]
   s.files = `git ls-files`.split("\n")
-  s.homepage = 'https://github.com/Codeminer42/best_practices_rails_template'
+  s.homepage = 'https://github.com/Codeminer42/code42template'
   s.name = 'code42template'
   s.rdoc_options = ['--charset=UTF-8']
   s.require_paths = ['lib']
@@ -27,5 +27,4 @@ Code42 template is a base Rails project used at Codeminer 42.
   s.add_dependency 'rails', Code42Template::RAILS_VERSION
 
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'quiet_assets'
 end
