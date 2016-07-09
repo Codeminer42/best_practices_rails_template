@@ -15,6 +15,12 @@ module Code42Template
     class_option :skip_bundle, type: :boolean, aliases: "-B", default: true,
       desc: "Don't run bundle install"
 
+    class_option :heroku, type: :boolean, aliases: "-H", default: false,
+      desc: "Create staging and production Heroku apps"
+
+    class_option :heroku_flags, type: :string, default: "",
+      desc: "Set extra Heroku flags"
+
     def finish_template
       invoke :code42_customization
       super
@@ -35,7 +41,10 @@ module Code42Template
       invoke :setup_dotfiles
       invoke :setup_git
       invoke :setup_database
+      invoke :create_local_heroku_setup
+      invoke :create_heroku_apps
       invoke :setup_bundler_audit
+      invoke :setup_webpack_tasks
       invoke :setup_spring
       invoke :setup_javascript
     end
@@ -56,6 +65,28 @@ module Code42Template
       build :create_database
     end
 
+    def create_local_heroku_setup
+      say "Creating local Heroku setup"
+      build :create_review_apps_setup_script
+      build :create_deploy_script
+      build :update_readme_with_deploy
+    end
+
+    def create_heroku_apps
+      if options[:heroku]
+        say "Creating Heroku apps"
+        build :create_heroku_apps, options[:heroku_flags]
+        build :set_heroku_serve_static_files
+        build :set_heroku_remotes
+        build :set_heroku_rails_secrets
+        build :set_heroku_rails_environment
+        build :set_heroku_application_host
+        build :create_heroku_pipeline
+        build :configure_heroku_buildpacks
+        build :configure_automatic_deployment
+      end
+    end
+
     def setup_development_environment
       say 'Setting up the development environment'
       build :add_bullet_gem_configuration
@@ -71,6 +102,8 @@ module Code42Template
 
     def setup_production_environment
       say 'Setting up the production environment'
+
+      build :remove_uglifier_js_compressor_config
     end
 
     def setup_staging_environment
@@ -108,6 +141,11 @@ module Code42Template
     def setup_bundler_audit
       say "Setting up bundler-audit"
       build :setup_bundler_audit
+    end
+
+    def setup_webpack_tasks
+      say "Setting up webpack tasks"
+      build :setup_webpack_tasks
     end
 
     def init_git

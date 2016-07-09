@@ -5,6 +5,23 @@ module Code42Template
     include Code42Template::Actions
     extend Forwardable
 
+    def_delegators(
+      :heroku_adapter,
+      :create_heroku_apps,
+      :create_deploy_script,
+      :update_readme_with_deploy,
+      :create_heroku_pipeline,
+      :create_production_heroku_app,
+      :create_staging_heroku_app,
+      :create_review_apps_setup_script,
+      :configure_heroku_buildpacks,
+      :set_heroku_rails_secrets,
+      :set_heroku_rails_environment,
+      :set_heroku_remotes,
+      :set_heroku_application_host,
+      :set_heroku_serve_static_files
+    )
+
     def readme
       template 'README.md.erb', 'README.md'
     end
@@ -116,6 +133,14 @@ module Code42Template
       end
     end
 
+    def remove_uglifier_js_compressor_config
+      gsub_file(
+        'config/environments/production.rb',
+        /^.+config.assets.js_compressor = :uglifier.*\n/,
+        ''
+      )
+    end
+
     def remove_routes_comment_lines
       replace_in_file 'config/routes.rb',
         /Rails\.application\.routes\.draw do.*end/m,
@@ -219,6 +244,14 @@ module Code42Template
     def setup_bundler_audit
       copy_file "bundler_audit.rake", "lib/tasks/bundler_audit.rake"
       append_file "Rakefile", %{\ntask default: "bundler:audit"\n}
+    end
+
+    def setup_webpack_tasks
+      copy_file "webpack.rake", "lib/tasks/webpack.rake"
+    end
+
+    def heroku_adapter
+      @heroku_adapter ||= Adapters::Heroku.new(self)
     end
   end
 end
