@@ -10,7 +10,6 @@ gem 'webpack-rails'
 gem 'foreman'
 
 group :development do
-  gem "quiet_assets"
   gem "spring"
   gem "spring-commands-rspec"
   gem "binding_of_caller"
@@ -20,16 +19,17 @@ end
 group :development, :test do
   gem 'brakeman', require: false
   gem "bullet"
+  gem 'listen'
   gem "bundler-audit", require: false
   gem "dotenv-rails"
   gem "pry-byebug"
   gem "pry-rails"
-  gem "rspec-rails", "~> 3.4.0"
+  gem "rspec-rails", "~> 3.5.1"
 end
 
 group :test do
   gem 'database_cleaner'
-  gem 'capybara-rails'
+  gem 'capybara'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'ffaker'

@@ -53,6 +53,6 @@ module Code42TemplateTestHelpers
   end
 
   def root_path
-    File.expand_path('../../../best_practices_rails_template', __FILE__)
+    Pathname(__dir__).join('..')
   end
 end

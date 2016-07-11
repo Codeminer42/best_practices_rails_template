@@ -42,3 +42,5 @@ UNRELEASED
   side by side with rails server
 * Include JS test runners: karma and mocha
 * Upgrade Ruby to 2.3.1
+* Upgrade Rails to 5.0
+* Drop quiet_assets in favor of Rails 5 native similar feature
