@@ -120,6 +120,8 @@ module Code42Template
 
     def configure_app
       say 'Configuring app'
+
+      build :add_puma_configuration
     end
 
     def setup_git

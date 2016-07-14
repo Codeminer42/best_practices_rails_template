@@ -53,6 +53,10 @@ module Code42Template
       copy_file 'rails_helper.rb', 'spec/rails_helper.rb'
     end
 
+    def add_puma_configuration
+      copy_file "puma.rb", "config/puma.rb", force: true
+    end
+
     def use_postgres_config_template
       template 'postgresql_database.yml.erb', 'config/database.yml',
         force: true
