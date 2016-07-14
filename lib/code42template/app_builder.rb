@@ -5,6 +5,23 @@ module Code42Template
     include Code42Template::Actions
     extend Forwardable
 
+    def_delegators(
+      :heroku_adapter,
+      :create_heroku_apps,
+      :create_deploy_script,
+      :update_readme_with_deploy,
+      :create_heroku_pipeline,
+      :create_production_heroku_app,
+      :create_staging_heroku_app,
+      :create_review_apps_setup_script,
+      :configure_heroku_buildpacks,
+      :set_heroku_rails_secrets,
+      :set_heroku_rails_environment,
+      :set_heroku_remotes,
+      :set_heroku_application_host,
+      :set_heroku_serve_static_files
+    )
+
     def readme
       template 'README.md.erb', 'README.md'
     end
@@ -34,6 +51,10 @@ module Code42Template
     def copy_rspec_config
       copy_file 'spec_helper.rb', 'spec/spec_helper.rb'
       copy_file 'rails_helper.rb', 'spec/rails_helper.rb'
+    end
+
+    def add_puma_configuration
+      copy_file "puma.rb", "config/puma.rb", force: true
     end
 
     def use_postgres_config_template
@@ -114,6 +135,14 @@ module Code42Template
           accepted_content.each { |line| file.puts line }
         end
       end
+    end
+
+    def remove_uglifier_js_compressor_config
+      gsub_file(
+        'config/environments/production.rb',
+        /^.+config.assets.js_compressor = :uglifier.*\n/,
+        ''
+      )
     end
 
     def remove_routes_comment_lines
@@ -219,6 +248,14 @@ module Code42Template
     def setup_bundler_audit
       copy_file "bundler_audit.rake", "lib/tasks/bundler_audit.rake"
       append_file "Rakefile", %{\ntask default: "bundler:audit"\n}
+    end
+
+    def setup_webpack_tasks
+      copy_file "webpack.rake", "lib/tasks/webpack.rake"
+    end
+
+    def heroku_adapter
+      @heroku_adapter ||= Adapters::Heroku.new(self)
     end
   end
 end
