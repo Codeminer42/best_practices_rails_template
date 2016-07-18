@@ -157,7 +157,14 @@ module Code42Template
 
     def setup_webpack_tasks
       say "Setting up webpack tasks"
+
       build :setup_webpack_tasks
+    end
+
+    def setup_health_task
+      say "Setting up health task"
+
+      build :setup_health_task
     end
 
     def init_git

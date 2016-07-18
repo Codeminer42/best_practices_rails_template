@@ -251,7 +251,11 @@ module Code42Template
 
     def setup_bundler_audit
       copy_file "bundler_audit.rake", "lib/tasks/bundler_audit.rake"
-      append_file "Rakefile", %{\ntask default: "bundler:audit"\n}
+    end
+
+    def setup_health_task
+      copy_file "health.rake", "lib/tasks/health.rake"
+      append_file "Rakefile", %{\ntask default: "health"\n}
     end
 
     def setup_webpack_tasks
