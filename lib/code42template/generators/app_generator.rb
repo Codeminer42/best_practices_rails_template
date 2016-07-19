@@ -21,6 +21,9 @@ module Code42Template
     class_option :heroku_flags, type: :string, default: "",
       desc: "Set extra Heroku flags"
 
+    class_option :skip_test, type: :boolean, aliases: '-T', default: true,
+      desc: 'Skip test files'
+
     def finish_template
       invoke :code42_customization
       super
