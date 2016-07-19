@@ -67,6 +67,11 @@ RSpec.describe "Create a new project with default configuration" do
     end
   end
 
+  it 'copies health task and continuous integration setup' do
+    expect(File).to exist(file_path('lib/tasks/health.rake'))
+    expect(File).to exist(file_path('.travis.yml'))
+  end
+
   it "loads secret_key_base from env" do
     secrets_file = IO.read("#{project_path}/config/secrets.yml")
 

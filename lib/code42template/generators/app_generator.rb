@@ -35,6 +35,7 @@ module Code42Template
       invoke :setup_test_environment
       invoke :setup_production_environment
       invoke :setup_staging_environment
+      invoke :setup_continuous_integration
       invoke :setup_secret_token
       invoke :create_code42_views
       invoke :configure_app
@@ -113,6 +114,12 @@ module Code42Template
       say 'Setting up the staging environment'
     end
 
+    def setup_continuous_integration
+      say 'Setting up CI configuration'
+
+      build :setup_continuous_integration
+    end
+
     def setup_secret_token
       say 'Moving secret token out of version control'
     end
@@ -150,7 +157,14 @@ module Code42Template
 
     def setup_webpack_tasks
       say "Setting up webpack tasks"
+
       build :setup_webpack_tasks
+    end
+
+    def setup_health_task
+      say "Setting up health task"
+
+      build :setup_health_task
     end
 
     def init_git
