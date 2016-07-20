@@ -11,8 +11,12 @@ end
 
 require 'spec_helper'
 require 'rspec/rails'
+require 'capybara/poltergeist'
 
 ActiveRecord::Migration.maintain_test_schema!
+
+Capybara.javascript_driver = :poltergeist
+Capybara.default_driver = :rack_test
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true
@@ -37,10 +41,3 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 end
-
-# Uncomment if you want to use phantomjs
-#require 'capybara/poltergeist'
-
-# Switch both assignments to :poltergeist if you want to use phantomjs
-Capybara.javascript_driver = :selenium
-Capybara.default_driver = :rack_test

@@ -233,6 +233,16 @@ module Code42Template
       )
     end
 
+    def configure_feature_tests
+      inject_into_file(
+        'config/environments/test.rb',
+        "  config.webpack.dev_server.enabled = false\n",
+        after: "Rails.application.configure do\n",
+      )
+
+      template 'feature_helper.rb.erb', 'spec/feature_helper.rb'
+    end
+
     def add_bullet_gem_configuration
       config = <<~RUBY
         config.after_initialize do

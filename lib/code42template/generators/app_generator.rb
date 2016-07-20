@@ -102,6 +102,7 @@ module Code42Template
 
       build :setup_test_env_action_dispatch_exceptions
       build :copy_rspec_config
+      build :configure_feature_tests
     end
 
     def setup_production_environment

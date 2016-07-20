@@ -1,0 +1,5 @@
+require 'rails_helper'
+require 'rake'
+
+<%= app_name.camelize %>::Application.load_tasks
+Rake::Task['webpack:compile'].invoke

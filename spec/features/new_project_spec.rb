@@ -19,14 +19,15 @@ RSpec.describe "Create a new project with default configuration" do
   end
 
   it "ensures project specs pass" do
-    FileUtils.cp(
-      Pathname(__dir__).join('..', 'fixtures', 'smoke_test.rb'),
-      Pathname(project_path).join('spec', 'models', 'smoke_test_spec.rb')
-    )
+    copy_file 'smoke_test.rb', 'spec/models/smoke_test_spec.rb'
+    copy_file 'feature_smoke_test.rb', 'spec/models/feature_smoke_spec.rb'
+    copy_file 'routes.rb', 'config/routes.rb'
+    copy_file 'home_controller.rb', 'app/controllers/home_controller.rb'
+    copy_file 'index.html.erb', 'app/views/home/index.html.erb'
 
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
-        expect(`rake`).to include('1 example, 0 failures')
+        expect(`rspec`).to include('3 examples, 0 failures')
         expect(`npm run test`).to include('1 passing', '1 SUCCESS')
       end
     end
@@ -180,5 +181,14 @@ RSpec.describe "Create a new project with default configuration" do
 
   def file_path(path)
     File.join(project_path, path)
+  end
+
+  def copy_file(source_fixture_name, destination_path)
+    source_path = Pathname(__dir__).join('..', 'fixtures', source_fixture_name)
+    destination_path = Pathname(project_path).join(destination_path)
+    destination_dir = destination_path.join('..')
+    FileUtils.mkdir_p(destination_dir) unless destination_dir.exist?
+
+    FileUtils.cp(source_path, destination_path)
   end
 end
