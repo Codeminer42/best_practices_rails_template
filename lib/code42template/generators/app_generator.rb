@@ -48,7 +48,6 @@ module Code42Template
       invoke :setup_background_jobs
       invoke :create_local_heroku_setup
       invoke :create_heroku_apps
-      invoke :setup_bundler_audit
       invoke :setup_webpack_tasks
       invoke :setup_spring
       invoke :setup_javascript
@@ -156,11 +155,6 @@ module Code42Template
 
     def setup_default_directories
       build :setup_default_directories
-    end
-
-    def setup_bundler_audit
-      say "Setting up bundler-audit"
-      build :setup_bundler_audit
     end
 
     def setup_webpack_tasks
