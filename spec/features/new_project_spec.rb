@@ -32,7 +32,7 @@ RSpec.describe "Create a new project with default configuration" do
           'LOC (100.0%) covered.', # simplecov
           'no offenses detected', # rubocop
           'Security Warnings | 0', # brakeman
-          'No vulnerabilities found', # bundle-audit
+          'No vulnerabilities found', # bundler-audit
           '1 passing', # mocha
           'TOTAL: 1 SUCCESS' # karma
         )
