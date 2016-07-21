@@ -1,12 +1,28 @@
 ENV['RAILS_ENV'] ||= 'test'
 
-require 'simplecov'
-SimpleCov.start
+if ENV['COVERAGE']
+  require 'simplecov'
+
+  SimpleCov.start 'rails' do
+    minimum_coverage 90
+    refuse_coverage_drop
+
+    add_filter do |source_file|
+      source_file.filename =~ %r{app/channels|lib/tasks}
+    end
+  end
+end
 
 require_relative '../config/environment'
 
 if Rails.env.production?
   abort 'The Rails environment is running in production mode!'
+end
+
+if ENV['COVERAGE']
+  %w(Controller Record Mailer Job).each do |klass|
+    Object.const_get "Application#{klass}"
+  end
 end
 
 require 'spec_helper'
