@@ -43,11 +43,6 @@ module Code42Template
       template 'secrets.yml', 'config/secrets.yml', force: true
     end
 
-    def create_shared_flashes
-      copy_file "_flashes.html.erb", "app/views/application/_flashes.html.erb"
-      copy_file "flashes_helper.rb", "app/helpers/flashes_helper.rb"
-    end
-
     def copy_rspec_config
       copy_file 'spec_helper.rb', 'spec/spec_helper.rb'
       copy_file 'rails_helper.rb', 'spec/rails_helper.rb'
@@ -257,10 +252,6 @@ module Code42Template
         config,
         after: "config.file_watcher = ActiveSupport::EventedFileUpdateChecker\n",
       )
-    end
-
-    def setup_bundler_audit
-      copy_file "bundler_audit.rake", "lib/tasks/bundler_audit.rake"
     end
 
     def setup_health_task
