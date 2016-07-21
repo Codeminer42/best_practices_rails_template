@@ -45,6 +45,7 @@ module Code42Template
       invoke :setup_dotfiles
       invoke :setup_git
       invoke :setup_database
+      invoke :setup_background_jobs
       invoke :create_local_heroku_setup
       invoke :create_heroku_apps
       invoke :setup_bundler_audit
@@ -67,6 +68,12 @@ module Code42Template
       end
 
       build :create_database
+    end
+
+    def setup_background_jobs
+      say 'Setting up background jobs'
+
+      build :setup_background_jogs
     end
 
     def create_local_heroku_setup
