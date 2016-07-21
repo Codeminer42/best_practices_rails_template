@@ -8,7 +8,7 @@ if ENV['COVERAGE']
     refuse_coverage_drop
 
     add_filter do |source_file|
-      source_file.filename =~ %r{app/channels}
+      source_file.filename =~ %r{app/channels|lib/tasks}
     end
   end
 end
