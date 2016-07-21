@@ -27,8 +27,15 @@ RSpec.describe "Create a new project with default configuration" do
 
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
-        expect(`rspec`).to include('3 examples, 0 failures')
-        expect(`npm run test`).to include('1 passing', '1 SUCCESS')
+        expect(`rake health`).to include(
+          '3 examples, 0 failures', # rspec
+          'LOC (100.0%) covered.', # simplecov
+          'no offenses detected', # rubocop
+          'Security Warnings | 0', # brakeman
+          'No vulnerabilities found', # bundle-audit
+          '1 passing', # mocha
+          'TOTAL: 1 SUCCESS' # karma
+        )
       end
     end
   end
