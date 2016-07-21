@@ -61,6 +61,11 @@ module Code42Template
       bundle_command 'exec rake db:create db:migrate'
     end
 
+    def setup_background_jobs
+      copy_file 'active_job.rb', 'config/initializers/active_job.rb'
+      copy_file 'sidekiq.yml', 'config/sidekiq.yml'
+    end
+
     def set_ruby_to_version_being_used
       create_file '.ruby-version', "#{Code42Template::RUBY_VERSION}\n"
     end
