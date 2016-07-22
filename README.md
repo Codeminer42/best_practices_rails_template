@@ -1,13 +1,12 @@
-
 # Code42Template
 
 This is the base application used at [Codeminer
-42](http://www.codeminer42.com/). It uses **Rails** to manage the backend and
+42](http://www.codeminer42.com/). It uses **Rails 5** to manage the backend and
 **Node.js / Webpack** to manage the frontend. The purpose of this project is
 to:
 
 - Provide a minimal and well-configured application generator.
-- Improve some Rails defaults with better ones.
+- Improve some Rails defaults.
 - Unleash the full power of the JavaScript ecosystem within Rails by making it
   a **first class citizen**. We replace JS sprockets with **Webpack**.
 - Enforce **code style guidelines**.
@@ -70,6 +69,9 @@ While running the generator it's assumed that:
 - You have a PostgreSQL user named after your UNIX login.
 - Your PostgreSQL user has a _blank_ password.
 
+It's OK if your PG settings happen to be different from this; DB creation will
+fail, but you can do it manually thereafter.
+
 At a basic level, here's how to setup PostgreSQL on Linux:
 
 ```sh
@@ -111,8 +113,9 @@ $ cd my_app_folder
 $ foreman start
 ```
 
-This command starts up Webpack dev server, Rails server and Sidekiq. To
-customize these processes you can edit `Procfile`. 
+This command runs Webpack dev server, Rails server and Sidekiq all at once.
+Note that Your redis server has to be up and running because of Sidekiq. To
+customize these processes you can edit `Procfile`.
 
 Now you can work as you'd usually work in any Rails application, with automatic
 Ruby and JS file reloads out of the box.
@@ -233,12 +236,18 @@ use browser-only global JS objects such as `window`. They must live at
 output a URL where you can run all tests:
 
         npm test:browser
+
+### Application server
+
+We use [puma](https://github.com/puma/puma) as our application server, which
+happens to be [Heroku's default
+recommendation](https://devcenter.heroku.com/changelog-items/594).
         
 ### Background jobs
 
-Our tool of choice is Sidekiq. We already include a `sidekiq.yml` configuration
-file with default settings, but you are encouraged to tune it to your
-application needs. Sidekiq is automatically started upon `foreman start`.
+Our tool of choice is Sidekiq, which is configured as ActiveJob's backend. We
+include a `sidekiq.yml` configuration file with default settings, but you are
+encouraged to tune it to your application needs.
 
 ### Debugging
 

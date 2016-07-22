@@ -44,6 +44,7 @@ module Code42Template
       invoke :remove_routes_comment_lines
       invoke :setup_dotfiles
       invoke :setup_git
+      invoke :create_setup_script
       invoke :setup_database
       invoke :setup_background_jobs
       invoke :create_local_heroku_setup
@@ -147,6 +148,12 @@ module Code42Template
         invoke :setup_default_directories
         invoke :init_git
       end
+    end
+
+    def create_setup_script
+      say 'Creating a setup script'
+
+      build :create_setup_script
     end
 
     def setup_dotfiles

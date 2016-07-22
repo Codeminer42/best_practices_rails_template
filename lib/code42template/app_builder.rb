@@ -106,6 +106,10 @@ module Code42Template
       run 'git init'
     end
 
+    def create_setup_script
+      copy_file 'setup', 'bin/setup', force: true
+    end
+
     def customize_error_pages
       meta_tags =<<-EOS
   <meta charset="utf-8" />
