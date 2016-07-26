@@ -123,40 +123,12 @@ module Code42Template
       end
     end
 
-    def remove_config_comment_lines
-      config_files = [
-        "application.rb",
-        "environment.rb",
-        "environments/development.rb",
-        "environments/production.rb",
-        "environments/test.rb",
-      ]
-
-      config_files.each do |config_file|
-        path = File.join(destination_root, "config/#{config_file}")
-
-        accepted_content = File.readlines(path).reject do |line|
-          line =~ /^.*#.*$/ || line =~ /^$\n/
-        end
-
-        File.open(path, "w") do |file|
-          accepted_content.each { |line| file.puts line }
-        end
-      end
-    end
-
     def remove_uglifier_js_compressor_config
       gsub_file(
         'config/environments/production.rb',
         /^.+config.assets.js_compressor = :uglifier.*\n/,
         ''
       )
-    end
-
-    def remove_routes_comment_lines
-      replace_in_file 'config/routes.rb',
-        /Rails\.application\.routes\.draw do.*end/m,
-        "Rails.application.routes.draw do\nend"
     end
 
     def setup_test_env_action_dispatch_exceptions
@@ -248,13 +220,13 @@ module Code42Template
     end
 
     def add_bullet_gem_configuration
-      config = <<~RUBY
-        config.after_initialize do
-          Bullet.enable = true
-          Bullet.bullet_logger = true
-          Bullet.rails_logger = true
-        end
-      RUBY
+      config = <<RUBY
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.rails_logger = true
+  end
+RUBY
 
       inject_into_file(
         "config/environments/development.rb",

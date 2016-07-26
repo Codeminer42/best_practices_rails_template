@@ -96,21 +96,6 @@ RSpec.describe "Create a new project with default configuration" do
     expect(File.stat(bin_setup_path)).to be_executable
   end
 
-  it "removes comments and extra newlines from config files" do
-    config_files = [
-      IO.read("#{project_path}/config/application.rb"),
-      IO.read("#{project_path}/config/environment.rb"),
-      IO.read("#{project_path}/config/environments/development.rb"),
-      IO.read("#{project_path}/config/environments/production.rb"),
-      IO.read("#{project_path}/config/environments/test.rb"),
-    ]
-
-    config_files.each do |file|
-      expect(file).not_to match(/.*#.*/)
-      expect(file).not_to match(/^$\n/)
-    end
-  end
-
   it 'sets action dispatch show exceptions to true in test env' do
     test_config = read_file('config/environments/test.rb')
 
