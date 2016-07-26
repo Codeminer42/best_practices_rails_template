@@ -47,7 +47,7 @@ RSpec.describe "Create a new project with default configuration" do
   end
 
   it "copies dotfiles" do
-    %w[.env .rspec].each do |dotfile|
+    %w[.env .rspec .codeclimate.yml].each do |dotfile|
       expect(File).to exist("#{project_path}/#{dotfile}")
     end
   end
