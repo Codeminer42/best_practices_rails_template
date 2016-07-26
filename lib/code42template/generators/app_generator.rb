@@ -40,8 +40,6 @@ module Code42Template
       invoke :create_code42_views
       invoke :configure_app
       invoke :customize_error_pages
-      invoke :remove_config_comment_lines
-      invoke :remove_routes_comment_lines
       invoke :setup_dotfiles
       invoke :setup_git
       invoke :create_setup_script
@@ -183,14 +181,6 @@ module Code42Template
     def customize_error_pages
       say 'Customizing the 500/404/422 pages'
       build :customize_error_pages
-    end
-
-    def remove_config_comment_lines
-      build :remove_config_comment_lines
-    end
-
-    def remove_routes_comment_lines
-      build :remove_routes_comment_lines
     end
 
     def setup_spring
