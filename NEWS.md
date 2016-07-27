@@ -1,4 +1,4 @@
-0.0.1 (28 Janeiro 2016)
+0.0.1 (January 28 2016)
 
 * Initial setup
 * Ruby 2.3.0
@@ -13,7 +13,7 @@
 * Setup script
 * Setup secret token
 
-1.0.0 (06 Abril 2016)
+1.0.0 (April 06 2016)
 
 * Add `quiet_assets` as development dependency
 * Generate rake, rails and rspec binstubs with Spring
@@ -28,21 +28,29 @@
 * Add `letter_opener`
 * Add `rubocop`
 
-1.0.1 (02 Maio 2016)
+1.0.1 (July 02 2016)
 
 * Fix bug: remove missing jquery from generated application.js
 
-UNRELEASED
+2.0.0 (July 27 2016)
 
 * Setup rspec with reasonable default settings out of the box
 * Setup capybara and database\_cleaner out of the box
 * Include optional config for phantomjs / poltergeist
 * Include webpack (webpack-rails) and NPM to replace sprockets' JS
-* webpack-rails includes foreman to manage processes: run webpack dev server
-  side by side with rails server
+* use foreman to manage processes: rails server, webpack dev server and sidekiq 
 * Include JS test runners: karma and mocha
 * Upgrade Ruby to 2.3.1
 * Upgrade Rails to 5.0
-* Drop quiet_assets in favor of Rails 5 native similar feature
+* Drop quiet\_assets in favor of Rails 5' native similar feature
 * Add Heroku support upon app creation
+* Tune up deploy with Heroku
 * Add Puma as the default application server
+* Add codeclimate configuration
+* Add sidekiq / ActiveJob as background job runner
+* Add rubocop configuration
+* Add rake health command and make CI use it
+* Cleanup unnecessary gems
+* Improve bin/setup script
+* Do not remove comments from generated files anymore
+* Improve README
