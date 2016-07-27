@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.date = Date.today.strftime('%Y-%m-%d')
 
   s.description = <<-HERE
-Code42 template is a base Rails project used at Codeminer 42.
+code42template is the base Rails project used at Codeminer 42.
   HERE
 
   s.email = 'suporte@codeminer42.com'
@@ -20,7 +20,7 @@ Code42 template is a base Rails project used at Codeminer 42.
   s.name = 'code42template'
   s.rdoc_options = ['--charset=UTF-8']
   s.require_paths = ['lib']
-  s.summary = "Generate a Rails app using codeminer 42 best practices."
+  s.summary = "Generate a minimal Rails / Webpack app."
   s.version = Code42Template::VERSION
 
   s.add_dependency 'bundler'
