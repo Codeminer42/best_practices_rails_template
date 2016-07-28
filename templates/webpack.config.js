@@ -1,21 +1,16 @@
-'use strict';
+const path = require('path')
+const webpack = require('webpack')
+const StatsPlugin = require('stats-webpack-plugin')
 
-var path = require('path');
-var webpack = require('webpack');
-var StatsPlugin = require('stats-webpack-plugin');
+const devServerPort = 3808
 
-// must match config.webpack.dev_server.port
-var devServerPort = 3808;
+const production = process.env.TARGET === 'production'
 
-// set TARGET=production on the environment to add asset fingerprints
-var production = process.env.TARGET === 'production';
-
-var config = {
+const config = {
   entry: {
     'application': './app/assets/javascripts/application.js'
   },
   output: {
-    // must match config.webpack.output_dir
     path: path.join(__dirname, '..', 'public', 'webpack'),
     publicPath: '/webpack/',
 
@@ -24,23 +19,21 @@ var config = {
   module: {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
-      { test: /\.json$/,   loader: 'json-loader' }
+      { test: /\.json$/, exclude: /node_modules/, loader: 'json-loader' }
     ]
   },
   resolve: {
     root: path.join(__dirname, '..', 'app', 'assets', 'javascripts')
   },
   plugins: [
-    // must match config.webpack.manifest_filename
     new StatsPlugin('manifest.json', {
-      // We only need assetsByChunkName
       chunkModules: false,
       source: false,
       chunks: false,
       modules: false,
       assets: true
     })]
-};
+}
 
 if (production) {
   config.plugins.push(
@@ -54,15 +47,15 @@ if (production) {
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin()
-  );
+  )
 } else {
   config.devServer = {
     port: devServerPort,
     headers: { 'Access-Control-Allow-Origin': '*' }
-  };
-  config.output.publicPath = '//localhost:' + devServerPort + '/webpack/';
+  }
+  config.output.publicPath = '//localhost:' + devServerPort + '/webpack/'
   // Source maps
-  config.devtool = 'cheap-module-eval-source-map';
+  config.devtool = 'cheap-module-eval-source-map'
 }
 
-module.exports = config;
+module.exports = config

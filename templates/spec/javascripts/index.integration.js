@@ -1,5 +1,5 @@
-const context = require.context('.', true, /integration\/.+\.spec\.js$/);
+const integrationSpecs = require.context('.', true, /integration\/.+\.spec\.js$/)
 
-context.keys().forEach(context);
+integrationSpecs.keys().forEach(integrationSpecs)
 
-module.exports = context;
+module.exports = integrationSpecs

@@ -1,28 +1,41 @@
-var webpack = require('karma-webpack');
-var webpackConfig = require('./webpack.config');
-var path = require('path');
-var webpackEntryFile = '../spec/javascripts/index.integration.js';
-var karmaPreprocessors = {};
+const path = require('path')
 
-karmaPreprocessors[webpackEntryFile] = ['webpack', 'sourcemap'];
+const webpack = require('karma-webpack')
+const webpackConfig = require('./webpack.config')
+const webpackEntryFile = '../spec/javascripts/index.integration.js'
 
 webpackConfig.entry = {
   test: path.resolve(__dirname, webpackEntryFile)
-};
+}
 
-webpackConfig.devtool = 'inline-source-map';
+webpackConfig.devtool = 'inline-source-map'
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
-    browsers: ['PhantomJS'],
-    port: 9876,
-    basePath: '.',
-    files: [
-      // avoids running tests twice when on watch mode
-      { pattern: webpackEntryFile, watched: false, included: true, served: true }
-    ],
-    preprocessors: karmaPreprocessors,
     frameworks: ['mocha', 'chai'],
+
+    files: [
+      {
+        pattern: webpackEntryFile,
+        watched: false,
+        included: true,
+        served: true
+      }
+    ],
+
+    preprocessors: {
+      '../spec/javascripts/index.integration.js': ['webpack', 'sourcemap']
+    },
+
+    webpack: webpackConfig,
+
+    reporters: ['mocha', 'notify', 'coverage', 'progress', 'spec'],
+
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/'
+    },
+
     plugins: [
       webpack,
       'karma-mocha',
@@ -32,17 +45,22 @@ module.exports = function(config) {
       'karma-spec-reporter',
       'karma-sourcemap-loader'
     ],
-    reporters: ['spec'],
-    colors: true,
-    logLevel: config.LOG_INFO,
-    autoWatch: false,
-    singleRun: true,
-    webpack: webpackConfig,
+
     webpackMiddleware: {
       noInfo: true
     },
+
     phantomjsLauncher: {
       exitOnResourceError: true
-    }
-  });
+    },
+
+    mochaReporter: { output: 'minimal' },
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: false,
+    browsers: ['PhantomJS'],
+    singleRun: true,
+    basePath: '.',
+  })
 }

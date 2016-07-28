@@ -1,0 +1,14 @@
+{
+  "rules": {
+    "no-unused-vars": 0
+  },
+  "extends": "standard",
+  "env": {
+    "mocha": true
+  },
+  "globals": {
+    "expect": true,
+    "fixture": true,
+    "sinon": true
+  }
+}
