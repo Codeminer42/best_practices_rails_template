@@ -11,6 +11,7 @@ const config = {
     'application': './app/assets/javascripts/application.js'
   },
   output: {
+    // must match config.webpack.output_dir
     path: path.join(__dirname, '..', 'public', 'webpack'),
     publicPath: '/webpack/',
 
@@ -26,6 +27,7 @@ const config = {
     root: path.join(__dirname, '..', 'app', 'assets', 'javascripts')
   },
   plugins: [
+    // must match config.webpack.manifest_filename
     new StatsPlugin('manifest.json', {
       chunkModules: false,
       source: false,

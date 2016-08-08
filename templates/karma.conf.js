@@ -14,6 +14,7 @@ module.exports = function (config) {
   config.set({
     frameworks: ['mocha', 'chai', 'sinon', 'fixture'],
 
+    // avoids running tests twice when on watch mode
     files: [
       {
         pattern: webpackEntryFile,
@@ -24,7 +25,7 @@ module.exports = function (config) {
     ],
 
     preprocessors: {
-      '../spec/javascripts/index.integration.js': ['webpack', 'sourcemap']
+      webpackEntryFile: ['webpack', 'sourcemap']
     },
 
     webpack: webpackConfig,
