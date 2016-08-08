@@ -3,13 +3,13 @@ const path = require('path');
 const webpack = require('karma-webpack');
 const webpackConfig = require('./webpack.config');
 
-const webpackEntryFile = '../spec/javascripts/index.integration.js'
+const webpackEntryFile = '../spec/javascripts/index.integration.js';
 
 webpackConfig.entry = {
   test: path.resolve(__dirname, webpackEntryFile)
 };
 
-webpackConfig.devtool = 'inline-source-map'
+webpackConfig.devtool = 'inline-source-map';
 
 module.exports = function (config) {
   config.set({
@@ -26,7 +26,7 @@ module.exports = function (config) {
     ],
 
     preprocessors: {
-      webpackEntryFile: ['webpack', 'sourcemap', 'coverage'],
+      [webpackEntryFile]: ['webpack', 'sourcemap', 'coverage'],
     },
 
     webpack: webpackConfig,
