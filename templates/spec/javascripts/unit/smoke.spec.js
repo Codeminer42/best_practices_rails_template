@@ -1,5 +1,5 @@
 describe('smoke test', () => {
   it('works', () => {
-    expect(true).to.be.ok
-  })
-})
+    expect(true).to.be.ok;
+  });
+});

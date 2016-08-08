@@ -1,17 +1,17 @@
-const path = require('path')
-const config = require('./webpack.config')
+const path = require('path');
+const config = require('./webpack.config');
 
 config.devServer = {
   host: 'localhost',
-  port: '8081'
-}
+  port: '8081',
+};
 
-const index = path.resolve(__dirname, '../spec/javascripts/index.browser.js')
+const index = path.resolve(__dirname, '../spec/javascripts/index.browser.js');
 
 config.entry = {
-  test: [`mocha!${index}`]
-}
+  test: [`mocha!${index}`],
+};
 
-config.output.publicPath = 'http://localhost:8081/'
+config.output.publicPath = 'http://localhost:8081/';
 
-module.exports = config
+module.exports = config;

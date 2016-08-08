@@ -1,8 +1,5 @@
 {
-  "rules": {
-    "no-unused-vars": 0
-  },
-  "extends": "standard",
+  "extends": "airbnb",
   "env": {
     "mocha": true
   },

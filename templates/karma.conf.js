@@ -1,12 +1,13 @@
-const path = require('path')
+const path = require('path');
 
-const webpack = require('karma-webpack')
-const webpackConfig = require('./webpack.config')
+const webpack = require('karma-webpack');
+const webpackConfig = require('./webpack.config');
+
 const webpackEntryFile = '../spec/javascripts/index.integration.js'
 
 webpackConfig.entry = {
   test: path.resolve(__dirname, webpackEntryFile)
-}
+};
 
 webpackConfig.devtool = 'inline-source-map'
 
@@ -20,21 +21,21 @@ module.exports = function (config) {
         pattern: webpackEntryFile,
         watched: false,
         included: true,
-        served: true
-      }
+        served: true,
+      },
     ],
 
     preprocessors: {
-      webpackEntryFile: ['webpack', 'sourcemap']
+      webpackEntryFile: ['webpack', 'sourcemap', 'coverage'],
     },
 
     webpack: webpackConfig,
 
-    reporters: ['mocha', 'notify', 'coverage', 'progress', 'spec'],
+    reporters: ['mocha', 'notify', 'progress', 'coverage'],
 
     coverageReporter: {
       type: 'lcov',
-      dir: 'coverage/'
+      dir: 'coverage/',
     },
 
     plugins: [
@@ -44,15 +45,15 @@ module.exports = function (config) {
       'karma-chrome-launcher',
       'karma-phantomjs-launcher',
       'karma-spec-reporter',
-      'karma-sourcemap-loader'
+      'karma-sourcemap-loader',
     ],
 
     webpackMiddleware: {
-      noInfo: true
+      noInfo: true,
     },
 
     phantomjsLauncher: {
-      exitOnResourceError: true
+      exitOnResourceError: true,
     },
 
     mochaReporter: { output: 'minimal' },
@@ -63,5 +64,5 @@ module.exports = function (config) {
     browsers: ['PhantomJS'],
     singleRun: true,
     basePath: '.',
-  })
-}
+  });
+};
