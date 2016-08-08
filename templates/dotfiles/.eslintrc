@@ -9,6 +9,7 @@
   "globals": {
     "expect": true,
     "fixture": true,
-    "sinon": true
+    "sinon": true,
+    "fixture": true
   }
 }
