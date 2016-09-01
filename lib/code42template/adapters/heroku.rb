@@ -46,11 +46,19 @@ module Code42Template
       end
 
       def set_heroku_remotes
-        remotes = <<~SHELL
-          #{command_to_join_heroku_app('staging')}
-          #{command_to_join_heroku_app('production')}
+        staging_app_name = heroku_app_name_for('staging')
+        production_app_name = heroku_app_name_for('production')
 
-          git config heroku.remote staging
+        remotes = <<~SHELL
+          `git remote add staging git@heroku.com:#{staging_app_name}.git 2> /dev/null`
+          `git remote add production git@heroku.com:#{production_app_name}.git 2> /dev/null`
+          `git config heroku.remote staging`
+
+          puts
+          puts 'If you already have access, try joining this app as a collaborator with the following commands:'
+          puts
+          puts "heroku join --app #{staging_app_name}"
+          puts "heroku join --app #{production_app_name}"
         SHELL
 
         @app_builder.append_file 'bin/setup', remotes
@@ -140,19 +148,6 @@ module Code42Template
       end
 
       private
-
-      def command_to_join_heroku_app(environment)
-        heroku_app_name = heroku_app_name_for(environment)
-
-        <<~SHELL
-        if heroku join --app #{heroku_app_name} &> /dev/null; then
-          git remote add #{environment} git@heroku.com:#{heroku_app_name}.git || true
-          printf 'You are a collaborator on the "#{heroku_app_name}" Heroku app\n'
-        else
-          printf 'Ask for access to the "#{heroku_app_name}" Heroku app\n'
-        fi
-        SHELL
-      end
 
       def heroku_app_name
         @app_builder.app_name.dasherize
