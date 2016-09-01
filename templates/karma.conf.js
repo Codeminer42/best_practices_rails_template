@@ -1,10 +1,9 @@
-var webpack = require('karma-webpack');
-var webpackConfig = require('./webpack.config');
-var path = require('path');
-var webpackEntryFile = '../spec/javascripts/index.integration.js';
-var karmaPreprocessors = {};
+const path = require('path');
 
-karmaPreprocessors[webpackEntryFile] = ['webpack', 'sourcemap'];
+const webpack = require('karma-webpack');
+const webpackConfig = require('./webpack.config');
+
+const webpackEntryFile = '../spec/javascripts/index.integration.js';
 
 webpackConfig.entry = {
   test: path.resolve(__dirname, webpackEntryFile)
@@ -12,17 +11,33 @@ webpackConfig.entry = {
 
 webpackConfig.devtool = 'inline-source-map';
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
-    browsers: ['PhantomJS'],
-    port: 9876,
-    basePath: '.',
+    frameworks: ['mocha', 'chai', 'sinon', 'fixture'],
+
+    // avoids running tests twice when on watch mode
     files: [
-      // avoids running tests twice when on watch mode
-      { pattern: webpackEntryFile, watched: false, included: true, served: true }
+      {
+        pattern: webpackEntryFile,
+        watched: false,
+        included: true,
+        served: true,
+      },
     ],
-    preprocessors: karmaPreprocessors,
-    frameworks: ['mocha', 'chai'],
+
+    preprocessors: {
+      [webpackEntryFile]: ['webpack', 'sourcemap', 'coverage'],
+    },
+
+    webpack: webpackConfig,
+
+    reporters: ['mocha', 'notify', 'progress', 'coverage'],
+
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/',
+    },
+
     plugins: [
       webpack,
       'karma-mocha',
@@ -30,19 +45,24 @@ module.exports = function(config) {
       'karma-chrome-launcher',
       'karma-phantomjs-launcher',
       'karma-spec-reporter',
-      'karma-sourcemap-loader'
+      'karma-sourcemap-loader',
     ],
-    reporters: ['spec'],
+
+    webpackMiddleware: {
+      noInfo: true,
+    },
+
+    phantomjsLauncher: {
+      exitOnResourceError: true,
+    },
+
+    mochaReporter: { output: 'minimal' },
+    port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
+    browsers: ['PhantomJS'],
     singleRun: true,
-    webpack: webpackConfig,
-    webpackMiddleware: {
-      noInfo: true
-    },
-    phantomjsLauncher: {
-      exitOnResourceError: true
-    }
+    basePath: '.',
   });
-}
+};

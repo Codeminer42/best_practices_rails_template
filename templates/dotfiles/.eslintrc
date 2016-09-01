@@ -1,0 +1,12 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "mocha": true
+  },
+  "globals": {
+    "expect": true,
+    "fixture": true,
+    "sinon": true,
+    "fixture": true
+  }
+}
