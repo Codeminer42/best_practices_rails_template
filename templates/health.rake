@@ -11,8 +11,9 @@ if Rails.env.development? || Rails.env.test?
   desc 'Checks app health: runs tests, security checks and rubocop'
   task :health do
     rails_helper = Rails.root / 'spec/rails_helper.rb'
+    rspec_env = { 'COVERAGE' => 'true', 'RAILS_ENV' => 'test' }
 
-    run_command "bundle exec rspec -r#{rails_helper}", 'COVERAGE' => 'true'
+    run_command "bundle exec rspec -r#{rails_helper}", rspec_env
     run_command 'npm run test'
     run_command 'bundle exec bundle-audit update'
     run_command 'bundle exec bundle-audit check'
