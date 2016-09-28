@@ -96,6 +96,7 @@ module Code42Template
 
     def copy_dotfiles
       directory("dotfiles", ".")
+      copy_file 'test_env_eslintrc', 'spec/javascripts/.eslintrc'
     end
 
     def setup_continuous_integration

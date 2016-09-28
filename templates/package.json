@@ -15,6 +15,10 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "eslint": "^3.5.0",
+    "eslint-config-airbnb-base": "^7.1.0",
+    "eslint-import-resolver-webpack": "^0.6.0",
+    "eslint-plugin-import": "^1.15.0",
     "karma": "^0.13.22",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^1.0.1",
@@ -29,6 +33,7 @@
     "mocha-webpack": "^0.4.0"
   },
   "scripts": {
+    "lint": "eslint .",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "NODE_ENV=test NODE_PATH='./app/assets/javascripts' mocha-webpack",
     "test:unit:watch": "npm run test:unit -- --watch",
