@@ -1,0 +1,16 @@
+{
+    "extends": "airbnb-base",
+    "env": {
+        "mocha": true
+    },
+    "settings": {
+        "import/resolver": {
+            "webpack": {
+                "config": "config/webpack.config.js"
+            }
+        }
+    },
+    "globals": {
+        "window": true
+    }
+}

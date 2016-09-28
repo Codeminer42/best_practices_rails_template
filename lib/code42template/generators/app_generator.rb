@@ -156,6 +156,7 @@ module Code42Template
 
     def setup_dotfiles
       build :copy_dotfiles
+      build :copy_eslint_config
     end
 
     def setup_default_directories

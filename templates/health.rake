@@ -15,6 +15,7 @@ if Rails.env.development? || Rails.env.test?
 
     run_command "bundle exec rspec -r#{rails_helper}", rspec_env
     run_command 'npm run test'
+    run_command 'npm run lint'
     run_command 'bundle exec bundle-audit update'
     run_command 'bundle exec bundle-audit check'
     run_command 'bundle exec brakeman -z'

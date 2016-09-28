@@ -47,9 +47,11 @@ RSpec.describe "Create a new project with default configuration" do
   end
 
   it "copies dotfiles" do
-    %w[.env .rspec .codeclimate.yml].each do |dotfile|
+    %w[.env .rspec .codeclimate.yml .eslintrc .eslintignore].each do |dotfile|
       expect(File).to exist("#{project_path}/#{dotfile}")
     end
+
+    expect(File).to exist("#{project_path}/spec/javascripts/.eslintrc")
   end
 
   it 'copies rspec configuration' do
