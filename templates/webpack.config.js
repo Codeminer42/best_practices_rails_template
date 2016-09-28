@@ -24,11 +24,15 @@ var config = {
   module: {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
-      { test: /\.json$/,   loader: 'json-loader' }
+      { test: /\.json$/,   loader: 'json-loader' },
+      { test: /sinon\.js$/, loader: "imports?define=>false,require=>false"}
     ]
   },
   resolve: {
-    root: path.join(__dirname, '..', 'app', 'assets', 'javascripts')
+    root: path.join(__dirname, '..', 'app', 'assets', 'javascripts'),
+    alias: {
+      sinon: 'sinon/pkg/sinon'
+    }
   },
   plugins: [
     // must match config.webpack.manifest_filename
