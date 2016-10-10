@@ -21,7 +21,11 @@ end
 
 if ENV['COVERAGE']
   %w(Controller Record Mailer Job).each do |klass|
-    Object.const_get "Application#{klass}"
+    begin
+      Object.const_get "Application#{klass}"
+    # rubocop:disable Lint/HandleExceptions
+    rescue NameError
+    end
   end
 end
 
@@ -29,7 +33,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/poltergeist'
 
-ActiveRecord::Migration.maintain_test_schema!
+ActiveRecord::Migration.maintain_test_schema! if defined? ActiveRecord
 
 Capybara.javascript_driver = :poltergeist
 Capybara.default_driver = :rack_test
@@ -39,21 +43,23 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 
-  config.before :suite do
-    DatabaseCleaner.clean_with :truncation
-  end
+  if defined? ActiveRecord
+    config.before :suite do
+      DatabaseCleaner.clean_with :truncation
+    end
 
-  config.before :each do
-    DatabaseCleaner.strategy = :transaction
-  end
+    config.before :each do
+      DatabaseCleaner.strategy = :transaction
+    end
 
-  config.before :each, type: :feature do
-    DatabaseCleaner.strategy = :truncation
-  end
+    config.before :each, type: :feature do
+      DatabaseCleaner.strategy = :truncation
+    end
 
-  config.around :each do |example|
-    DatabaseCleaner.start
-    example.run
-    DatabaseCleaner.clean
+    config.around :each do |example|
+      DatabaseCleaner.start
+      example.run
+      DatabaseCleaner.clean
+    end
   end
 end

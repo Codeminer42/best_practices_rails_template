@@ -59,6 +59,8 @@ module Code42Template
     end
 
     def setup_database
+      return if options['skip_active_record']
+
       say 'Setting up database'
 
       if 'postgresql' == options[:database]
