@@ -54,3 +54,12 @@
 * Improve bin/setup script
 * Do not remove comments from generated files anymore
 * Improve README
+
+2.1.0 (October 10 2016)
+
+* Fix bin/setup script regarding Heroku - it does not try to join as a collaborator anymore
+* Fix health rake task regarding rspec
+* Add eslint / eslint configuration
+* Add sinon - needs "import sinon from 'sinon';" manual require in tests
+* Make it possible to generate an app without ActiveRecord
+* Configure Travis CI
