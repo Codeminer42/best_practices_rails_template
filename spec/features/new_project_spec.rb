@@ -20,21 +20,16 @@ RSpec.describe "Create a new project with default configuration" do
 
   it "ensures project specs pass" do
     copy_file 'smoke_test.rb', 'spec/models/smoke_test_spec.rb'
-    copy_file 'feature_smoke_test.rb', 'spec/models/feature_smoke_spec.rb'
     copy_file 'routes.rb', 'config/routes.rb'
-    copy_file 'home_controller.rb', 'app/controllers/home_controller.rb'
-    copy_file 'index.html.erb', 'app/views/home/index.html.erb'
 
     Dir.chdir(project_path) do
       Bundler.with_clean_env do
-        expect(`rake health`).to include(
-          '3 examples, 0 failures', # rspec
+        expect(`NO_NPM_TEST=true rake health`).to include(
+          '1 example, 0 failures', # rspec
           'LOC (100.0%) covered.', # simplecov
           'no offenses detected', # rubocop
           'Security Warnings | 0', # brakeman
-          'No vulnerabilities found', # bundler-audit
-          '1 passing', # mocha
-          'TOTAL: 1 SUCCESS' # karma
+          'No vulnerabilities found' # bundler-audit
         )
       end
     end
