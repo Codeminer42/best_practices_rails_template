@@ -154,6 +154,7 @@ tasks:
 - `bundle-audit` and `brakeman` check if your app does not have basic
   security holes.
 - `rubocop` makes sure your code adheres to style guidelines.
+- `eslint` makes sure your JavaScript code conforms to fine standards
 
 ### Continuous integration
 
@@ -236,6 +237,20 @@ use browser-only global JS objects such as `window`. They must live at
 output a URL where you can run all tests:
 
         npm test:browser
+
+#### JavaScript: eslint
+
+To run eslint over all JS files issue the following command:
+
+        npm run lint
+
+#### JavaScript: sinon
+
+The template comes with `sinon` already pre-configured. Sinon is a popular
+mocking and stubbing tool for JavaScript. To import it in a test file use the
+following ES6 import instruction:
+
+        import sinon from 'sinon';
 
 ### Application server
 
